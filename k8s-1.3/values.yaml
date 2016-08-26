@@ -1,0 +1,9 @@
+args:
+elasticsearch:
+  args:
+kibana:
+  args:
+logspout:
+  args:
+logstash:
+  args:

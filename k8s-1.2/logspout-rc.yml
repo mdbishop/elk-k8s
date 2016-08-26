@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: logspout
+  namespace: elk
+  labels:
+    component: elk
+    role: logspout
+spec:
+  replicas: 1
+  selector:
+    component: elk
+    role: logspout
+  template:
+    metadata:
+      labels:
+        component: elk
+        role: logspout
+    spec:
+      serviceAccount: elk
+      containers:
+      - name: logspout
+        image: infracloud/logspout-logstash-docker
+        env:
+        - name: ROUTE_URIS
+          value: "logstash://logstash.elk.svc.cluster.local:5000"
+        volumeMounts:
+        - mountPath: "/var/run/docker.sock"
+          name: dockersock
+      volumes:
+      - hostPath:
+          path: "/var/run/docker.sock"
+        name: "dockersock"

@@ -1,0 +1,51 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: logstash
+  namespace: elk
+  labels:
+    component: elk
+    app: logstash
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: elk
+      app: logstash
+  template:
+    metadata:
+      name: logstash
+      labels:
+        component: elk
+        app: logstash
+    spec:
+      serviceAccount: elk
+      containers:
+      - name: logstash
+        image: infracloud/docker-logstash
+        env:
+        - name: KUBERNETES_TRUST_CERT
+          value: "true"
+        - name: ES_HOST_NAME
+          value: http\:\/\/elasticsearch.elk.svc.cluster.local\:9200
+        args:
+{{ range $k, $v  := .Values.args }}
+          - '-{{$k}}={{$v}}'
+{{ end }}
+        ports:
+        - containerPort: 5043
+          name: lumberjack
+          protocol: TCP
+        - containerPort: 5000
+          name: logspout
+          protocol: UDP
+        volumeMounts:
+        - mountPath: /certs
+          name: certs
+      volumes:
+      - emptyDir:
+          medium: ""
+        name: "storage"
+      - hostPath:
+          path: "/tmp"
+        name: "certs"

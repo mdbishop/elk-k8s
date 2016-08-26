@@ -1,0 +1,9 @@
+name: logstash
+version: 0.0.1
+description: Logstash
+keywords:
+  - logstash
+maintainers:
+  - name: Ming Hsieh
+    email: zanhsieh@gmail.com
+engine: gotpl

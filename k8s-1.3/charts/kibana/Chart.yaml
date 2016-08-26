@@ -1,0 +1,9 @@
+name: kibana
+version: 0.0.1
+description: Kibana
+keywords:
+  - kibana
+maintainers:
+  - name: Ming Hsieh
+    email: zanhsieh@gmail.com
+engine: gotpl

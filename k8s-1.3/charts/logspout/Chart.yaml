@@ -1,0 +1,9 @@
+name: logspout
+version: 0.0.1
+description: Logspout
+keywords:
+  - logspout
+maintainers:
+  - name: Ming Hsieh
+    email: zanhsieh@gmail.com
+engine: gotpl

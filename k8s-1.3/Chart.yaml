@@ -1,0 +1,10 @@
+name: ELK-k8s
+version: 0.0.1
+description: Deploy a full ELK monitoring stack for k8s
+keywords:
+  - elk
+home: http://github.com/zanhsieh/elk-k8s
+maintainers:
+  - name: Ming Hsieh
+    email: zanhsieh@gmail.com
+engine: gotpl

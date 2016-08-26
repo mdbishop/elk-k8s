@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: logspout
+  namespace: elk
+  labels:
+    component: elk
+    app: logspout
+spec:
+  template:
+    metadata:
+      name: logspout
+      labels:
+        component: elk
+        app: logspout
+    spec:
+      serviceAccount: elk
+      containers:
+      - name: logspout
+        image: infracloud/logspout-logstash-docker
+        env:
+        - name: ROUTE_URIS
+          value: "logstash://logstash.elk.svc.cluster.local:5000"
+        volumeMounts:
+        - mountPath: "/var/run/docker.sock"
+          name: dockersock
+      volumes:
+      - hostPath:
+          path: "/var/run/docker.sock"
+        name: "dockersock"

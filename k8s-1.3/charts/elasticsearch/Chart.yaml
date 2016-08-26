@@ -1,0 +1,9 @@
+name: elasticsearch
+version: 0.0.1
+description: ElasticSearch
+keywords:
+  - elasticsearch
+maintainers:
+  - name: Ming Hsieh
+    email: zanhsieh@gmail.com
+engine: gotpl
