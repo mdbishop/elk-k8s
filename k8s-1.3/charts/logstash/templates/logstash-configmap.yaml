@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logstash
+  namespace: elk
+data:
+  logstash.conf: |-
+    input {
+      udp {
+        port => 5000
+        codec => json
+      }
+    }
+    filter {
+      grok {
+        match => {
+          "[_source][message]" => "%{TIME} request_id=%{WORD} \[info\] %{GREEDYDATA:json_data}"
+        }
+      }
+      mutate {
+        replace => { "[_source][message]" => "%{json_data}" }
+      }
+      json {
+        source => "[_source][message]"
+      }
+    }
+    output {
+      elasticsearch {
+        hosts => ["http://elasticsearch.elk.svc.cluster.local:9200"]
+      }
+    }
+

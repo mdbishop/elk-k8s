@@ -40,12 +40,17 @@ spec:
           name: logspout
           protocol: UDP
         volumeMounts:
-        - mountPath: /certs
-          name: certs
+        - name: certs
+          mountPath: /certs
+        - name: config-volume
+          mountPath: /logstash/config
       volumes:
-      - emptyDir:
+      - name: "storage"
+        emptyDir:
           medium: ""
-        name: "storage"
-      - hostPath:
+      - name: "certs"
+        hostPath:
           path: "/tmp"
-        name: "certs"
+      - name: config-volume
+        configMap:
+          name: logstash
