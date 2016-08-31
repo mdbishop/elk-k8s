@@ -12,6 +12,14 @@ data:
       }
     }
     filter {
+      grok {
+        match => {
+          "[_source][message]" => "%{TIME} request_id=%{WORD} \[info\] %{GREEDYDATA:json_data}"
+        }
+      }
+      mutate {
+        replace => { "[_source][message]" => "%{json_data}" }
+      }
       json {
         source => "[_source][message]"
       }
