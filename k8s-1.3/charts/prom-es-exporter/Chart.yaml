@@ -1,0 +1,10 @@
+name: prom-es-exporter
+version: 0.0.1
+description: Prometheus ElasticSearch exporter
+keyword:
+  - elk
+  - prometheus
+maintainers:
+  - name: Ming Hsieh
+    email: zanhseih@gmail.com
+engine: gotpl

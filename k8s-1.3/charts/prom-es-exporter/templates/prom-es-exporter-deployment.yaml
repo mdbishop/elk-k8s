@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: prom-es-exporter
+  namespace: elk
+  labels:
+    component: elk
+    app: prom-es-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: elk
+      app: prom-es-exporter
+  template:
+    metadata:
+      name: prom-es-exporter
+      labels:
+        component: elk
+        app: prom-es-exporter
+    spec:
+      containers:
+      - name: prom-es-exporter
+        image: 192.168.99.100:5000/prometheus-es-exporter:0.1.1
+        args:
+        - -e elasticsearch.elk.svc.cluster.local
+        ports:
+        - name: web
+          containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+        volumeMounts:
+        - name: config-volume
+          mountPath: /usr/src/app
+      volumes:
+      - name: config-volume
+        configMap:
+          name: prom-es-exporter

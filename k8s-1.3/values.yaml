@@ -1,4 +1,6 @@
 args:
+
+
 elasticsearch:
   args:
 kibana:
@@ -6,4 +8,6 @@ kibana:
 logspout:
   args:
 logstash:
+  args:
+prom-es-exporter:
   args:
