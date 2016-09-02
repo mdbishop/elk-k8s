@@ -15,20 +15,10 @@ data:
     # This key is optional - if not specified, the default is '_all'.
     QueryIndices = _all
     # The search query to run.
-    QueryJson = {
-        "size": 0,
-        "query": {
-            "match_all": {}
-        }
-    }
+    QueryJson = { "size": 0, "query": { "match_all": {} } }
 
     [query_path]
     QueryIntervalSecs = 20
     QueryIndices = _all
-    QueryJson = {
-        "query": {
-            "query_string": {
-                "query": "path: \"/login\" AND remote_ip: \"172.17.0.1\""
-            }
-        }
-    }
+    QueryJson = { "query": { "query_string": { "query": "path: \"*login\" AND method: \"GET\" AND status:\"200\"" } } }
+

@@ -19,11 +19,15 @@ spec:
         component: elk
         app: prom-es-exporter
     spec:
+      serviceAccount: elk
       containers:
       - name: prom-es-exporter
-        image: 192.168.99.100:5000/prometheus-es-exporter:0.1.1
+        image: 192.168.99.100:5000/prometheus-es-exporter:0.1.1-alpine
         args:
-        - -e elasticsearch.elk.svc.cluster.local
+        - -e
+        - elasticsearch.elk.svc.cluster.local:9200
+        - -c
+        - /usr/src/app/exporter.cfg
         ports:
         - name: web
           containerPort: 8080

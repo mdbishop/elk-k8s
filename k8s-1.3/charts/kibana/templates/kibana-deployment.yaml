@@ -22,7 +22,7 @@ spec:
       serviceAccount: elk
       containers:
       - name: kibana
-        image: quay.io/pires/docker-kibana:4.1.1
+        image: quay.io/pires/docker-kibana:4.1.2
         env:
         - name: KIBANA_ES_URL
           value: "http://elasticsearch.elk.svc.cluster.local:9200"
